@@ -11,16 +11,22 @@ export interface UserInterface {
 }
 
 export interface LoginResponse {
+  accessToken: string;
   user: Partial<UserInterface>;
   message: string;
 }
 
 export interface SignupResponse {
+  accessToken: string;
   user: UserInterface;
   message: string;
 }
 
 export interface UserUpdateResponse {
   user: UserInterface;
+  message: string;
+}
+
+export interface ForgotPassResponse {
   message: string;
 }

@@ -1,3 +1,4 @@
+import { Order } from 'src/modules/order/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Order } from 'src/modules/order/entities/order.entity';
 import { UserRole } from '../enum/user.enum';
 
 @Entity('users')
@@ -53,4 +53,13 @@ export class User {
 
   @DeleteDateColumn()
   deleted_at: Date;
+
+  @Column({ nullable: true })
+  otp?: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  otpExpirationDate?: Date;
+
+  @Column({ nullable: true })
+  otpVerified?: boolean;
 }

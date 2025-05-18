@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AuthorizationHeader } from './common/enums';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,10 +10,10 @@ async function bootstrap() {
     .setTitle('NEST BACKEND')
     .setDescription('NEST BACKEND')
     .setVersion('1.0.0')
-    // .addBearerAuth(
-    //   { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-    //   AuthorizationHeader.BEARER,
-    // )
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      AuthorizationHeader.BEARER,
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -20,6 +21,7 @@ async function bootstrap() {
     swaggerOptions: {
       docExpansion: 'none',
       syntaxHighlight: { activated: false },
+      persistAuthorization: true,
     },
     explorer: false,
   });
