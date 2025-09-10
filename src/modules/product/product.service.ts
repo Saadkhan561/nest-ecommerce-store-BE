@@ -4,7 +4,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductOptions } from './entities/product_options.entity';
 import { CreateProductDto } from './dto/create-product-dto';
-import { CreateProductInterface } from './interface/create-product.interface';
+import { CreateProductInterface } from './interface/product.interface';
+import { ProductImgUrl } from './entities/product-img-urls.entity';
 
 @Injectable()
 export class ProductService {
@@ -13,6 +14,8 @@ export class ProductService {
     private readonly product: Repository<Product>,
     @InjectRepository(ProductOptions)
     private readonly productOptions: Repository<ProductOptions>,
+    @InjectRepository(ProductImgUrl)
+    private readonly productImgUrls: Repository<ProductImgUrl>,
   ) {}
 
   async createProduct(
@@ -24,7 +27,6 @@ export class ProductService {
       categoryId: product.categoryId,
       pinned: product.pinned,
       productStatus: product.productStatus,
-      img_url: product.img_url,
     });
     await this.product.save(newProduct);
     const productOptions = product.options.map((option) => {
@@ -34,7 +36,17 @@ export class ProductService {
         productId: newProduct.id,
       });
     });
+
+    const productImgUrls = product.img_urls.map((url) => {
+      return this.productImgUrls.create({
+        url: url,
+        productId: newProduct.id,
+      });
+    });
+
     await this.productOptions.save(productOptions);
+
+    await this.productImgUrls.save(productImgUrls);
 
     return {
       data: {
@@ -43,7 +55,7 @@ export class ProductService {
         categoryId: newProduct.categoryId,
         pinned: newProduct.pinned,
         productStatus: newProduct.productStatus,
-        img_url: newProduct.img_url,
+        img_urls: productImgUrls.map((url) => url.url),
       },
       message: 'Product created successfully',
     };

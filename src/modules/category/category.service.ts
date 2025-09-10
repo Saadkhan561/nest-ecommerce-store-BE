@@ -3,7 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category-dto';
-import { CreateCategoryInterface } from './interface/category.interface';
+import {
+  CreateCategoryInterface,
+  GetCategoriesById,
+} from './interface/category.interface';
 
 @Injectable()
 export class CategoryService {
@@ -29,5 +32,30 @@ export class CategoryService {
       },
       message: 'Category created successfully',
     };
+  }
+
+  async getCategoriesById(
+    parentCategoryId: string,
+  ): Promise<GetCategoriesById> {
+    const categories = await this.category
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.products', 'products')
+      .leftJoinAndSelect('products.img_url', 'product_img_urls')
+      .where('category.parentCategoryId = :parentCategoryId', {
+        parentCategoryId,
+      })
+      .select([
+        'category.id',
+        'category.name',
+        'products.id',
+        'products.name',
+        'products.description',
+        'products.pinned',
+        'products.productStatus',
+        'product_img_urls.url',
+      ])
+      .getMany();
+
+    return { categories: categories };
   }
 }

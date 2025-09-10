@@ -56,5 +56,5 @@ export class CreateProductDto {
     required: true,
   })
   @IsString()
-  img_url: string;
+  img_urls: string[];
 }

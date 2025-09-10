@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { ProductOptions } from './product_options.entity';
 import { Category } from 'src/modules/category/entities/category.entity';
+import { ProductImgUrl } from './product-img-urls.entity';
 
 @Entity('products')
 export class Product {
@@ -43,8 +44,10 @@ export class Product {
   })
   options: ProductOptions[];
 
-  @Column()
-  img_url: string;
+  @OneToMany(() => ProductImgUrl, (img_url) => img_url.product, {
+    cascade: true,
+  })
+  img_url: ProductImgUrl[];
 
   @CreateDateColumn()
   created_at: Date;

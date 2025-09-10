@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category-dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -11,6 +11,13 @@ import { UserRole } from '../auth/enum/user.enum';
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
+
+  @ApiBearerAuth(AuthorizationHeader.BEARER)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Get(':id')
+  async getCategoriesById(@Param('id') parentCategoryId: string) {
+    return this.categoryService.getCategoriesById(parentCategoryId);
+  }
 
   @ApiBearerAuth(AuthorizationHeader.BEARER)
   @UseGuards(AuthGuard, RolesGuard)
