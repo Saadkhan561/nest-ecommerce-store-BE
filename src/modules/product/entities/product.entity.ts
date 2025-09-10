@@ -43,6 +43,9 @@ export class Product {
   })
   options: ProductOptions[];
 
+  @Column()
+  img_url: string;
+
   @CreateDateColumn()
   created_at: Date;
 

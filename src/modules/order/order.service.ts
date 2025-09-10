@@ -29,6 +29,7 @@ export class OrderService {
     const itemsArray = order.products.map((item) => {
       return this.orderItems.create({
         productId: item.productId,
+        productOptionId: item.productOptionId,
         quantity: item.quantity,
         priceAtOrder: item.priceAtOrder,
         orderId: newOrder.id,

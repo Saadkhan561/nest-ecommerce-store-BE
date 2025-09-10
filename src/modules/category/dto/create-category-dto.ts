@@ -17,4 +17,11 @@ export class CreateCategoryDto {
   })
   @IsNumber()
   parentCategory: number;
+
+  @ApiProperty({
+    description: 'Category Image',
+    required: true,
+  })
+  @IsString()
+  img_url: string;
 }

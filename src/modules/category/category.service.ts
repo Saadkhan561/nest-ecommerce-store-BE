@@ -18,12 +18,14 @@ export class CategoryService {
     const newCategory = this.category.create({
       name: category.name,
       parentCategory: { id: category.parentCategory },
+      img_url: category.img_url,
     });
     await this.category.save(newCategory);
     return {
       data: {
         name: newCategory.name,
         parentCategory: String(newCategory.parentCategory.id),
+        img_url: newCategory.img_url,
       },
       message: 'Category created successfully',
     };

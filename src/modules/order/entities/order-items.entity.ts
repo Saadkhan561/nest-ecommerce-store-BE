@@ -26,6 +26,9 @@ export class OrderItems {
   productId: number;
 
   @Column()
+  productOptionId: number;
+
+  @Column()
   quantity: number;
 
   @Column()

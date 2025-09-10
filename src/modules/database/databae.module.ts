@@ -12,11 +12,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         host: 'localhost',
         port: 5432,
         username: 'postgres',
-        password: 'database12345',
+        password: 'rokx51928',
         database: 'perfume-store',
         // entities: [User, Category, ParentCategory, Product, ProductOptions],
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: false,
         // ssl: {
         //   rejectUnauthorized: false,
         // },

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ParentCategoryService } from './parent_category.service';
 import { CreateParentCategoryDto } from './dto/create-parent-category';
 import { AuthGuard } from 'src/common/guards/auth.guard';
@@ -7,6 +7,7 @@ import { AuthorizationHeader } from 'src/common/enums';
 import { RolesGuard } from 'src/common/guards/role.guard';
 import { Roles } from 'src/common/decorators/role.decorator';
 import { UserRole } from '../auth/enum/user.enum';
+import { GetParentCategories } from './interface/parent-category.interface';
 
 @Controller('parent-category')
 export class ParentCategoryController {
@@ -22,5 +23,12 @@ export class ParentCategoryController {
     return this.parentCategoryService.createParentCategory(
       createParentCategoryDto,
     );
+  }
+
+  @ApiBearerAuth(AuthorizationHeader.BEARER)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Get('all')
+  async getParentCategories(): Promise<GetParentCategories> {
+    return this.parentCategoryService.getParentCategories();
   }
 }

@@ -11,6 +11,7 @@ import { ProductModule } from './modules/product/product.module';
 import { OrderModule } from './modules/order/order.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MailModule } from './modules/mail/mail.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MailModule } from './modules/mail/mail.module';
     OrderModule,
     AuthModule,
     MailModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

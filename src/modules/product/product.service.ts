@@ -24,6 +24,7 @@ export class ProductService {
       categoryId: product.categoryId,
       pinned: product.pinned,
       productStatus: product.productStatus,
+      img_url: product.img_url,
     });
     await this.product.save(newProduct);
     const productOptions = product.options.map((option) => {
@@ -42,6 +43,7 @@ export class ProductService {
         categoryId: newProduct.categoryId,
         pinned: newProduct.pinned,
         productStatus: newProduct.productStatus,
+        img_url: newProduct.img_url,
       },
       message: 'Product created successfully',
     };

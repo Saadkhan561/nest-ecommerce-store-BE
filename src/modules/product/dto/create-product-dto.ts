@@ -20,7 +20,7 @@ export class CreateProductDto {
   description: string;
 
   @ApiProperty({
-    example: 'J.',
+    example: 1,
     description: 'Product Category',
     required: true,
   })
@@ -50,4 +50,11 @@ export class CreateProductDto {
   })
   @IsObject()
   options: ProductOptionsDto[];
+
+  @ApiProperty({
+    description: 'Uploaded img URL',
+    required: true,
+  })
+  @IsString()
+  img_url: string;
 }

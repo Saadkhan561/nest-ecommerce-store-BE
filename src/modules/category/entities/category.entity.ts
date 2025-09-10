@@ -32,6 +32,9 @@ export class Category {
   @JoinColumn({ name: 'parentCategoryId' })
   parentCategory: ParentCategory;
 
+  @Column()
+  img_url: string;
+
   @CreateDateColumn()
   created_at: Date;
 

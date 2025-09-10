@@ -5,6 +5,7 @@ export interface CreateProductInterface {
     categoryId: number;
     pinned: boolean;
     productStatus: boolean;
+    img_url: string;
   };
   message: string;
 }

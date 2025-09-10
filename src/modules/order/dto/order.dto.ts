@@ -4,7 +4,9 @@ import { OrderProducts } from '../interface/order.interface';
 
 export class CreateOrderDto {
   @ApiProperty({
-    example: [{ productId: 5, quantity: 2, priceAtOrder: 1200 }],
+    example: [
+      { productId: 5, productOptionId: 1, quantity: 2, priceAtOrder: 1200 },
+    ],
     description: 'Enter IDs of bought products',
     required: true,
   })
